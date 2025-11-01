@@ -7,6 +7,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 
+model_path = "rf_recommendation_model.pkl"
+drive_file_id = "1OMkO3-85lhz50hGh9Hu_iJVERxVc_23E" # replace with your real ID
+download_url = f"https://drive.google.com/uc?id={drive_file_id}"
+
+if not os.path.exists(model_path):
+    print("📥 Downloading model from Google Drive...")
+    gdown.download(download_url, model_path, quiet=False)
+else:
+    print("✅ Model already exists locally.")
+
 # === Helper to safely load files ===
 def safe_load(filename):
     path = os.path.join(os.path.dirname(__file__), filename)
